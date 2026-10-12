@@ -1,0 +1,689 @@
+Delivered-To: robertoj.mtzj@gmail.com
+Received: by 2002:a05:7208:548b:b0:10e:d9de:a0fb with SMTP id y11csp1070537rbe;
+        Sun, 11 Oct 2026 11:26:02 -0700 (PDT)
+X-Received: by 2002:a05:620a:3947:b0:93e:6325:ae6d with SMTP id af79cd13be357-93ebd248dd9mr1426337685a.40.1791743162387;
+        Sun, 11 Oct 2026 11:26:02 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1791743162; cv=none;
+        d=google.com; s=arc-20260327;
+        b=Zd2fQt0nSoEQk3YVxjNH7o9pxDjp2PJvUFZ/cex8yilB5lX6jMRSgB0swy4xsJHcNE
+         tiKk7DuFg8PIaKU5go9MceZ5fXrEaM19jDsv77hpPZ5+tvz6g3tNdSLj3gbEBMta4S0r
+         hfPoK5niC+ioMY63hJ7+5Fp1JQCksUE6W4RzIj7LcPv+nGJMLQrU0pnHXH5rXHO6oXBW
+         nPPhoaXnUJiSa7qmY2mpt0GTn495tIIwrBDnwswOXbUw+yxH9zvNug1spt9O1GEdp66S
+         zX2QgtZcLJDA9f8Baxx/PLv7FKzInGi7byV8c7WtnETPXSdN2QI5YJn4agJC7EhYS2li
+         e/Hw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=feedback-id:message-id:mime-version:list-help:date:subject:to:from
+         :dkim-signature:dkim-signature;
+        bh=Tl59DTzXJY4lMghheSamrlwP/fSBanEZ0neE7SB/99g=;
+        fh=l1Hp1Ct/RA8IWWSSy5NymgUSoZeottfVMvDYSj6wxMA=;
+        b=fdWyq9Kto6SJdEGqYxnb57Wvn6eexqDuzFanRMaOp9nwEzzBd3SEQIrM0Fjzs/+DXU
+         ucKsqEpb84H2UHjof99vghDFJG+p3rdZnV7qAd/HTdtuCkhBluu6MOy1Z+l2WG1x4Rqo
+         J4syo5/eZ2lYad4Hw3fDOgVUxmvyGoaQcRTwb2yqQ7bxCQwE9Tge7yyELiL5jsi+XEhW
+         gU7v7n92J89V5xBQ9A384AdeRGvnCNWlcx44tz5c7Js57HSHJ/om/jjORfa/nTatf6BC
+         DX6443RJue5Fxg67eEXBwdAN0+BaG5jhUeldUbdL+LtzbUoL4iOrF91YTTmWQLnbWS84
+         VwUQ==;
+        dara=google.com
+ARC-Authentication-Results: i=1; mx.google.com;
+       dkim=pass header.i=@txn.liverpool.com.mx header.s=12dkim1 header.b=Hd0jaIhG;
+       dkim=pass header.i=@s12.y.mc.salesforce.com header.s=fbldkim12 header.b=aoYQgz2K;
+       spf=pass (google.com: domain of bounce-mkxvwk7gs2ae5hycn4f7nt63za.120048@bounce.prom.liverpool.com.mx designates 13.110.214.22 as permitted sender) smtp.mailfrom=bounce-MKXVWK7GS2AE5HYCN4F7NT63ZA.120048@bounce.prom.liverpool.com.mx;
+       dmarc=pass (p=REJECT sp=REJECT dis=NONE) header.from=txn.liverpool.com.mx
+Return-Path: <bounce-MKXVWK7GS2AE5HYCN4F7NT63ZA.120048@bounce.prom.liverpool.com.mx>
+Received: from mta20.prom.liverpool.com.mx (mta20.prom.liverpool.com.mx. [13.110.214.22])
+        by mx.google.com with ESMTPS id af79cd13be357-93eb99bc086si604615885a.436.2026.10.11.11.26.02
+        for <robertoj.mtzj@gmail.com>
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sun, 11 Oct 2026 11:26:02 -0700 (PDT)
+Received-SPF: pass (google.com: domain of bounce-mkxvwk7gs2ae5hycn4f7nt63za.120048@bounce.prom.liverpool.com.mx designates 13.110.214.22 as permitted sender) client-ip=13.110.214.22;
+Authentication-Results: mx.google.com;
+       dkim=pass header.i=@txn.liverpool.com.mx header.s=12dkim1 header.b=Hd0jaIhG;
+       dkim=pass header.i=@s12.y.mc.salesforce.com header.s=fbldkim12 header.b=aoYQgz2K;
+       spf=pass (google.com: domain of bounce-mkxvwk7gs2ae5hycn4f7nt63za.120048@bounce.prom.liverpool.com.mx designates 13.110.214.22 as permitted sender) smtp.mailfrom=bounce-MKXVWK7GS2AE5HYCN4F7NT63ZA.120048@bounce.prom.liverpool.com.mx;
+       dmarc=pass (p=REJECT sp=REJECT dis=NONE) header.from=txn.liverpool.com.mx
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; s=12dkim1; d=txn.liverpool.com.mx;
+ h=From:To:Subject:Date:List-Help:MIME-Version:Message-ID:Content-Type;
+ i=pedidos@txn.liverpool.com.mx;
+ bh=Tl59DTzXJY4lMghheSamrlwP/fSBanEZ0neE7SB/99g=;
+ b=Hd0jaIhGqFtQHEnS6AmdgSFg0XugOYaukJT/nuUrT0IogUbzz2yaAWy6gehEYSobN+unp9Btyc37
+   l/bqb+8WcaofotbguPvy317NFAoqwDhMVfCAj8Z58KTupCfSmfglUj9jjh8ol4ol0JbNQdgwYlP/
+   ulx5RyvUrW+BQBLY1HkcBe99g49nD+QeR7pK1pYWZ7Azj76xfaKKgIbciW/dkBo/EIdRrchF8C/Q
+   fTODO+BJgbadFM2TUF9aqfNVFq+rq4Y1HWz6Hh+EQ1RSBnU4cCs1GvG+TW/y4oa/uSvFT1OaOMwI
+   nbfP451qgyfYp504R2hx477OKbUtH5JRDJ0xgw==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; s=fbldkim12; d=s12.y.mc.salesforce.com;
+ h=From:To:Subject:Date:List-Help:MIME-Version:Message-ID:Content-Type;
+ bh=Tl59DTzXJY4lMghheSamrlwP/fSBanEZ0neE7SB/99g=;
+ b=aoYQgz2KuDxiEltFDBeumuhVeZQ7jY42TrDJLZ7poT7xZ/6/rsQs2Du7a/5YdqjyFRM11jS0CogJ
+   zD8JvkgT5TVqMGRLXhEAZcERDZo000utsZ450deeNjm1LYS2ewnFApvbOEbwR4eDjHSyvL3EIrZm
+   ioRltdWvL/owCkqDrEEUQ6TRdqloFTB0/XLNcBESVhFA2oc/4EqaN7OWe6hzOCSaPH6RYQBe/xnv
+   uPQ9wgUKaGyLTVKEpMa+zQHhSu5rBeZUXHoluhmYuU5PbjZXTJiwFcu4NdfxREn7LRmkufuBMaW2
+   gZ+BLgK4G1as8+h4loUW0XvDPCQuUjnBEAKHmw==
+Received: by mta20.prom.liverpool.com.mx id hpfabk39mjch for <robertoj.mtzj@gmail.com>; Sun, 11 Oct 2026 18:26:02 +0000 (envelope-from <bounce-MKXVWK7GS2AE5HYCN4F7NT63ZA.120048@bounce.prom.liverpool.com.mx>)
+From: "Liverpool" <pedidos@txn.liverpool.com.mx>
+To: <robertoj.mtzj@gmail.com>
+Subject: =?UTF-8?Q?Tu_pedido_ya_est=C3=A1_listo,_acude_al_m=C3=B3dulo_C&C?=
+Date: Sun, 11 Oct 2026 12:26:02 -0600
+List-Help: <https://click.prom.liverpool.com.mx/subscription_center.aspx?jwt=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJtaWQiOiI1MjYwMDMzMjgiLCJzIjoiMTg5MDIyMzI2IiwibGlkIjoiNiIsImoiOiIyNDM2MzYiLCJqYiI6Ijk0NDcxMiIsImQiOiIxMjAwNDgifQ.WcKtDp5JID3KQwcEMn0OhixPfo_5ZS9VlFORXoS2rWg>
+MIME-Version: 1.0
+x-messageKey: EVTtrn_SOMS_Emaileea12c6f-a61b-4980-be87-685c049fbb901791743160911
+X-Delivery: Transactional
+X-SFMC-Stack: 12
+x-job: 526003328_243636
+Message-ID: <b48e8663-e79c-4a05-8dcc-dec94f236f73@iad4s12mta2150.xt.local>
+Feedback-ID: 526003328:243636:13.110.214.22:sfmktgcld
+Content-Type: multipart/alternative;
+	boundary="n8uOAZFRvIQO=_?:"
+
+This is a multi-part message in MIME format.
+
+--n8uOAZFRvIQO=_?:
+Content-Type: text/plain;
+	charset="utf-8"
+Content-Transfer-Encoding: 8bit
+
+To view this email as a web page, go to the link below,  or copy and paste it into your browser's address window.    https://click.prom.liverpool.com.mx/?qs=ABl7ImQiOjUwMjYsInQiOjcwOCwicyI6MTJ9AAwAAAAAA3XuyF5HtEOrqLPtz2ifUwCme-z6FTz_HfJ1LQZe9P4FdXWwnIKeyxtJ762Rr7rLUTB76guOmmjcWz9w20IU8C4QD_IXFze0knwzrShqAoJY    
+
+  
+----------------------------------------      This email was sent by:   SERVICIOS LIVERPOOL S.A. DE C.V.   Mario Pani 200, Santa Fe   Ciudad de México, Ciudad de México, 05348, México      We respect your right to privacy - visit the following URL to view our policy.   ( https://click.prom.liverpool.com.mx/?qs=ABl7ImQiOjUwMjYsInQiOjcwOCwicyI6MTJ9AAwAAAAAA3XuyF5b5LOjZMtHmyP7D4RvV1SBKdc_kMvLikgIcLv_MNkCe3a4ZuieQh-uhe04oH0xR7r9Y6WwFjcCzSnOZ2-ydn8KREXDSdfsihTf7qB1 )      ----------------------------------------
+
+--n8uOAZFRvIQO=_?:
+Content-Type: text/html;
+	charset="utf-8"
+Content-Transfer-Encoding: 8bit
+
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+  <head>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <style type="text/css">
+      ReadMsgBody{ width: 100%;}
+      .ExternalClass {width: 100%;}
+      .ExternalClass, .ExternalClass p, .ExternalClass span, .ExternalClass font, .ExternalClass td, .ExternalClass div {line-height: 100%;}
+      body {-webkit-text-size-adjust:100%; -ms-text-size-adjust:100%;margin:0 !important;}
+      p { margin: 1em 0;}
+      table td { border-collapse: collapse;}
+      img {outline:0;}
+      a img {border:none;}
+      @-ms-viewport{ width: device-width;}
+    </style>
+    <style type="text/css">
+      @media only screen and (max-width: 480px) {
+        .container {width: 100% !important;}
+        .footer { width:auto !important; margin-left:0; }
+        .mobile-hidden { display:none !important; }
+        .logo { display:block !important; padding:0 !important; }
+        img { max-width:100% !important; height:auto !important; max-height:auto !important;}
+        .header img{max-width:100% !important;height:auto !important; max-height:auto !important;}
+        .photo img { width:100% !important; max-width:100% !important; height:auto !important;}
+        .drop { display:block !important; width: 100% !important; float:left; clear:both;}
+        .footerlogo { display:block !important; width: 100% !important; padding-top:15px; float:left; clear:both;}
+        .nav4, .nav5, .nav6 { display: none !important; }
+        .tableBlock {width:100% !important;}
+        .responsive-td {width:100% !important; display:block !important; padding:0 !important; }
+        .fluid, .fluid-centered {
+          width: 100% !important;
+          max-width: 100% !important;
+          height: auto !important;
+          margin-left: auto !important;
+          margin-right: auto !important;
+        }
+        .fluid-centered {
+          margin-left: auto !important;
+          margin-right: auto !important;
+        }
+        /* MOBILE GLOBAL STYLES - DO NOT CHANGE */
+        body { padding: 0px !important; font-size: 16px !important; line-height: 150% !important;}
+        h1 { font-size: 22px !important; line-height: normal !important;}
+        h2 { font-size: 20px !important; line-height: normal !important;}
+        h3 { font-size: 18px !important; line-height: normal !important;}
+        .buttonstyles {
+          font-family:arial,helvetica,sans-serif !important;
+          font-size: 16px !important;
+          color: #FFFFFF !important;
+          padding: 10px !important;
+        }
+        /* END OF MOBILE GLOBAL STYLES - DO NOT CHANGE */
+      }
+      @media only screen and (max-width: 640px) {
+        .container { width:100% !important; }
+        .mobile-hidden { display:none !important; }
+        .logo { display:block !important; padding:0 !important; }
+        .photo img { width:100% !important; height:auto !important;}
+        .nav5, .nav6 { display: none !important;}
+        .fluid, .fluid-centered {
+          width: 100% !important;
+          max-width: 100% !important;
+          height: auto !important;
+          margin-left: auto !important;
+          margin-right: auto !important;
+        }
+        .fluid-centered {
+          margin-left: auto !important;
+          margin-right: auto !important;
+        }
+      }
+    </style>
+    <!--[if mso]>       <style type="text/css">           /* Begin Outlook Font Fix */           body, table, td {               font-family: Arial, Helvetica, sans-serif ;               font-size:16px;               color:#000000;               line-height:1;           }           /* End Outlook Font Fix */       </style>     <![endif]-->
+  </head>
+  <body bgcolor="#ffffff" text="#000000" style="background-color: #ffffff; color: #000000; padding: 0px; -webkit-text-size-adjust:none; font-size: 16px; font-family:arial,helvetica,sans-serif;">
+    <div style="font-size:0; line-height:0;"><img src="https://click.prom.liverpool.com.mx/open.aspx?YYFDDQONA2RU7I7QSBBCTKJFMU.120048&d=120048&bmt=0" width="1" height="1" alt=""></div>
+    <table width="100%" border="0" cellpadding="0" cellspacing="0" align="center">
+      <tr>
+        <td align="center" valign="top">
+          <!--   To view this email as a web page, click on the link below,  or copy and paste it into your browser's address window.  https://view.prom.liverpool.com.mx/?vawpToken=U3ZSJRH6GMEEJPNCRKK7WSEHM4.120048  .//--> <center> <table width="600" cellpadding="0" cellspacing="0" border="0"> <tr>  <td width="100%" align="center">  <font face="verdana" size="1" color="#444444"> To view this email as a web page, go   <a href="https://click.prom.liverpool.com.mx/?qs=ABl7ImQiOjUwMjYsInQiOjcwOCwicyI6MTJ9AAwAAAAAA3XuyF4xunu_Y2dMONwVsC-aY-HVrhUKNB0SurkG5WYN8i6dwS0e711onjpv3Vrs-K-eivvIR3kV_XSbO4SQbzPR4WQ2UkkN8ASSCzvE28Zq" > here.</a><br>  </font>  </td> </tr> </table> </center>
+        </td>
+      </tr>
+      <tr>
+        <td align="center">
+          <table cellspacing="0" cellpadding="0" border="0" width="600" class="container" align="center">
+            <tr>
+              <td>
+                <table class="tb_properties border_style" style="background-color : #F7F7F7; border : 0px; line-height : 100%; " cellspacing="0" cellpadding="0" bgcolor="#F7F7F7" width="100%">
+                  <tr>
+                    <td align="center" valign="top">
+                      <table align="left" border="0" cellpadding="0" cellspacing="0" width="100%">
+                        <tr>
+                          <!-- added padding here -->
+                          <td class="content_padding" style="">
+                            <!-- end of comment -->
+                            <table border="0" cellpadding="0" cellspacing="0" width="100%">
+                              <tr> <!-- top slot -->
+                                <td align="center" class="header" valign="top">
+                                  <table align="left" border="0" cellpadding="0" cellspacing="0" width="100%">
+                                    <tbody>
+                                        <tr>
+                                          <td align="left" valign="top">
+                                            <table cellspacing="0" cellpadding="0" style="width:100%">
+                                              <tbody>
+                                              <tr>
+                                                <td class="responsive-td" valign="top" style="width: 100%;">
+                                                  <!----><!----><!----><table cellpadding="0" cellspacing="0" width="100%" role="presentation" style="min-width: 100%; " class="stylingblock-content-wrapper"><tr><td class="stylingblock-content-wrapper camarker-inner">
+<table cellpadding="0" cellspacing="0" width="100%" role="presentation" style="min-width: 100%; " class="stylingblock-content-wrapper"><tr><td class="stylingblock-content-wrapper camarker-inner">
+<table style="width:100%; max-width: 650px;background:#F7F7F7;margin:0px; padding:0px;border-spacing:0px; border-color:none;text-align:center;color:#333;" cellpadding="0" border="0">
+  <tr>
+    <td align="center">
+      <a href="https://click.prom.liverpool.com.mx/?qs=ABl7ImQiOjUwMjYsInQiOjcwOCwicyI6MTJ9AAwAAAAAA3XuyF4y_TxiJ1JKCeuAEqwOIdhF_CnXvjIc3g4RW2ZxrzmcGr19V5XTBhAyigXYXj_7OMxeT6hE9SY1TvUjAmjFOX6-DmK9bPj9kd6wbHhc" title="Liverpool es parte de mi vida"   data-linkto="https://"><img data-assetid="62798" src="https://image.prom.liverpool.com.mx/lib/fe3c11727364047e771471/m/1/e24db2bb-2326-4882-a952-855b339ef864.jpg" alt="Liverpool -Es parte de mi vida" width="600" style="             display: block;             padding: 0px;             text-align: center;             height: auto;             width: 100%;             border: 0px;           "></a>
+    </td>
+  </tr>
+</table>
+</td></tr></table>
+
+</td></tr></table><!----><!----><table cellpadding="0" cellspacing="0" width="100%" role="presentation" style="min-width: 100%; " class="stylingblock-content-wrapper"><tr><td class="stylingblock-content-wrapper camarker-inner">
+
+  
+  
+
+  
+  
+
+</td></tr></table><!----><!----><table cellpadding="0" cellspacing="0" width="100%" role="presentation" style="min-width: 100%; " class="stylingblock-content-wrapper"><tr><td class="stylingblock-content-wrapper camarker-inner">
+<table cellpadding="0" cellspacing="0" width="100%" role="presentation" style="min-width: 100%; " class="stylingblock-content-wrapper"><tr><td class="stylingblock-content-wrapper camarker-inner">
+
+
+
+
+<table style="width:100%; max-width: 650px;background:#F7F7F7;margin-top:10px; padding:0px;border-spacing:0px; border-color:none;text-align:center;color:#333;" cellpadding="0" border="0">
+  <tbody style="background:#FFF;">
+    <tr align="center">
+      <td class="gris" style="background:#F7F7F7;width:5%;"></td>
+      <td class="m-body__block" style="background:#FFF;border-radius:4px;box-shadow:0 2px 4px 0 rgba(0, 0, 0, 0.15);margin:0 auto;">
+        <h1 class="a-body__somsTitle -thirdColor" style="color:#333;font-size:18px;font-weight:bold;margin-bottom:0;margin-top:30px;">Hola ﻿<span class="acr-field nl-dce-field" data-nl-expr="/context/rtEvent/ctx/nombreCliente" data-nl-type="string" contenteditable="false">Roberto Javier </span>﻿</h1>
+        <p class="a-body__facturacionInfo -secondColor" style="color:#666;">Tu&nbsp;mercancía está lista, pasa por ella al módulo de Click&Collect de la tienda&nbsp;</p>
+        
+        <div class="m-body__somsLocation" style="margin-bottom:20px;"><img width="48" class="a-body__somsLocationImage" style="display:inline-block;margin:0;vertical-align:middle;width:48px;" alt="Ubicación" src="https://image.prom.liverpool.com.mx/lib/fe3211727364047e761678/m/1/069985f3-e485-48cf-9692-e38ba86f6722.png"><br>
+          
+          
+          <span class="a-body__somsLocationInfo -primaryColor" style="display:inline-block;margin:10px;vertical-align:middle;">﻿
+          <span style="color:#e10098;" class="acr-field nl-dce-field" data-nl-expr="/context/rtEvent/ctx/descripcionTienda" data-nl-type="string" contenteditable="false"></span>﻿</span>
+       
+          <br>
+         
+          <p class="a-body__confirmacionInfo -secondColor" style="color:#666;">Para agilizar tu recolección puedes hacer cita
+        </p>
+
+                    <a style="text-decoration: none;color:#fff;" class="arc-link" data-nl-type="externalLink" href="https://click.prom.liverpool.com.mx/?qs=ABl7ImQiOjUwMjYsInQiOjcwOCwicyI6MTJ9AAwAAAAAA3XuyF4zYYW6JiWYOfLQ0-PT6UlKe_D6hf5dkXGq1N-axX3K7REZTMh0a3t2uvdwMszqEwoievGK8ncVKfh2NC2l2WWcuRoPO3nAm9ek2FYF" data-nl-lnkep-perso-attr-href="%%buttonLink%%"><button style="background:#e10098;border:none;border-radius:4px;color:#FFF;cursor:pointer;font-size:16px;height:44px;width:166px;margin:0;padding:0 10px;">Agendar Cita</button></a>          
+          
+
+  
+          
+          <p class="a-body__confirmacionInfo -secondColor" style="color:#666;">Recuerda presentar tu número de tu pedido. 
+        </p>
+        <p class="a-body__confirmacionInfo -primaryColor" style="#e10098;">¡Te esperamos en Click&Collect!
+        </p>
+        <p class="a-body__confirmacionInfo -secondColor" style="color:#666;">Consulta el horario de nuestras tiendas  <a href="https://click.prom.liverpool.com.mx/?qs=ABl7ImQiOjUwMjYsInQiOjcwOCwicyI6MTJ9AAwAAAAAA3XuyF40zzN__fwac-4xY6-8p4ETNCqVVcUZRyXQzo_tvpM_RRTEarrxsJrOC-9SYseWCqvzAXziJ-kdBYzt0goB7E8b36PgFFrpy0Mw0QAt" style="text-decoration:none;"><span style="color:#e10098;">aquí</span></a> o en Liverpool Pocket.</p><br>
+        </div>
+      </td>
+      <td class="gris" style="background:#F7F7F7;width:5%;"></td>
+    </tr>
+  
+</table></td></tr></table>
+
+</td></tr></table><!----><!----><table cellpadding="0" cellspacing="0" width="100%" role="presentation" style="min-width: 100%; " class="stylingblock-content-wrapper"><tr><td class="stylingblock-content-wrapper camarker-inner"></td></tr></table><!----><!----><table cellpadding="0" cellspacing="0" width="100%" role="presentation" style="min-width: 100%; " class="stylingblock-content-wrapper"><tr><td class="stylingblock-content-wrapper camarker-inner"> 
+<table style="width:100%;">
+  <tbody style="background:#FFF;">
+    <tr>
+      <td style="background:#F7F7F7;width:5%;" class="gris"></td>
+      <td class="m-alert__content -warningAlert" style="border-left:5px solid #ffd457;box-shadow:0 2px 4px 0 rgba(0, 0, 0, 0.15);">
+        <table cellpading="0" cellspacing="0" style="width:100%;">
+          <tbody style="background:#fff4d4;">
+            <tr>
+              <td valign="top" style="width:10%;" align="center"><img class="a-alert__icon" src="https://image.prom.liverpool.com.mx/lib/fe3211727364047e761678/m/1/c9c9251d-0d10-4f5b-a5ca-d9bbc80fd29f.png" alt="Warning" width="" style="margin-top:15px;">
+              </td>
+              <td>
+                <p class="a-alert__content -thirdColor -first" style="color:#333;font-size:14px;margin-bottom:0;width:90%;">El plazo para recoger estos productos es de 15 días naturales a partir de hoy. 
+                </p>
+                <p class="a-alert__content -thirdColor -last" style="color:#333;font-size:14px;margin-top:0;width:90%;">Te recordamos que puedes checar el horario de nuestras tiendas en la página de Liverpool.com, o en Liverpool pocket.
+                </p>
+                
+              </td>
+              
+            </tr>
+          
+        </table>
+        
+      </td>
+      <td style="background:#F7F7F7;width:5%;" class="gris"></td>
+    </tr>
+</table>
+
+
+    
+ </td></tr></table><!----><!----><table cellpadding="0" cellspacing="0" width="100%" role="presentation" style="min-width: 100%; " class="stylingblock-content-wrapper"><tr><td class="stylingblock-content-wrapper camarker-inner"></td></tr></table><!----><!----><table cellpadding="0" cellspacing="0" width="100%" role="presentation" style="min-width: 100%; " class="stylingblock-content-wrapper"><tr><td class="stylingblock-content-wrapper camarker-inner"></td></tr></table><!----><!----><table cellpadding="0" cellspacing="0" width="100%" role="presentation" style="min-width: 100%; " class="stylingblock-content-wrapper"><tr><td class="stylingblock-content-wrapper camarker-inner">
+<table cellpadding="0" cellspacing="0" width="100%" role="presentation" style="min-width: 100%; " class="stylingblock-content-wrapper"><tr><td class="stylingblock-content-wrapper camarker-inner"><table style="width:100%;">
+  <tbody style="background:#fff4d4;">
+    <tr>
+      <td style="background:#F7F7F7;width:5%;" class="gris"></td>
+      <td class="m-alert__content -warningAlert -somsAlert" style="border-left:5px solid #ffd457;box-shadow:0 2px 4px 0 rgba(0, 0, 0, 0.15);">
+        <table cellpading="0" cellspacing="0" style="width:100%;">
+          <tbody style="background:#fff4d4;display:block;vertical-align:top;">
+            <tr>
+              <td valign="top" style="width:10%;vertical-align:top;" align="center">  <img src="https://image.prom.liverpool.com.mx/lib/fe3211727364047e761678/m/1/901a7b65-69e3-4200-ab19-f6540fd6d5ac.png" width="100%" style="padding:0px, margin:0px;display:block;vertical-align:top;">
+                <img src="https://image.prom.liverpool.com.mx/lib/fe3211727364047e761678/m/1/c9c9251d-0d10-4f5b-a5ca-d9bbc80fd29f.png" alt="Warning" width="" style="margin-top:-4px;">
+              </td>
+              <td style="width:85%;">
+   <img src="https://image.prom.liverpool.com.mx/lib/fe3211727364047e761678/m/1/901a7b65-69e3-4200-ab19-f6540fd6d5ac.png" width="100%" style="padding:0px; margin:0px;display:block;vertical-align:top;">
+                <table style="width:100%;margin:0px; padding:0px;border-spacing:0px; border-color:none;" cellpadding="0" border="0">
+                  <tbody style="background:#fff4d4;">
+                    <tr>
+                      <td>
+                                                <p style="color:#333;margin:0px;display:block:vertical-align:top;margin-top:-4px;">Utiliza este código para registrarte
+                        </p>
+                        <div style="display: block; width: 100%; max-width: 240px; height: 10%;padding:0px 5px 10px 0px;vertical-align:top;"> <img src="https://barcode-mfkkoyaieq-uc.a.run.app/7540127698" width="250" height="54" alt="Code" style="display: block; width: 240px; max-width: 240px; max-height: 54px;" data-nl-imgep-perso-attr-src-enabled="true" data-nl-imgep-perso-attr-src="https://cbprr.liverpool.com.mx/Barcode/Image?rem=7540127698"></div>
+                      </td>
+
+                    </tr>
+                  
+                </table>
+               
+              </td>
+            </tr>
+          
+        </table>
+      </td>
+      <td style="background:#F7F7F7;width:5%;" class="gris"></td>
+    </tr>
+  
+</table>
+</td></tr></table>
+
+</td></tr></table><!----><!----><table cellpadding="0" cellspacing="0" width="100%" role="presentation" style="min-width: 100%; " class="stylingblock-content-wrapper"><tr><td class="stylingblock-content-wrapper camarker-inner"></td></tr></table><!----><!----><table cellpadding="0" cellspacing="0" width="100%" role="presentation" style="min-width: 100%; " class="stylingblock-content-wrapper"><tr><td class="stylingblock-content-wrapper camarker-inner">
+<table cellpadding="0" cellspacing="0" width="100%" role="presentation" style="min-width: 100%; " class="stylingblock-content-wrapper"><tr><td class="stylingblock-content-wrapper camarker-inner">
+
+<table style="width:100%; max-width: 650px;background:#F7F7F7;margin-top:10px; padding:0px;border-spacing:0px; border-color:none;text-align:center;color:#333;" cellpadding="0" border="0">
+
+  <tbody style="background:#F7F7F7;">
+    <tr>
+      <td class="gris" style="background:#F7F7F7;width:5%;"></td>
+      <td class="gris" style="background:#F7F7F7;">
+        <h3 class="a-body__tab -primary" style="border-bottom:2px solid #e10098;color:#FFF;font-size:18px;font-weight:normal;margin:0;">
+          <span class="tabText" style="background:#e10098;display:table-cell;height:30px;line-height:30px;padding:3px 16px 0;">
+Dirección de entrega
+
+          </span>
+        </h3>
+      </td>
+      <td class="gris" style="background:#F7F7F7;width:5%;"></td>
+      
+    </tr>
+      <tr>
+      <td class="gris" style="background:#F7F7F7;width:5%;"></td>
+      <td class="m-body__block" style="background:#FFF;border-radius:4px;margin:0 auto;">
+        <img src="https://image.prom.liverpool.com.mx/lib/fe3211727364047e761678/m/1/901a7b65-69e3-4200-ab19-f6540fd6d5ac.png" width="100%" style="padding:0px; margin:0px;display:block;"><table style="width:100%; max-width: 650px;background:#F7F7F7;margin:0px; padding:0px;border-spacing:0px; border-color:none;text-align:left;color:#333;" cellpadding="0" border="0">
+              
+          <tbody style="background:#FFF;">
+            <tr>
+              <td colspan="2">
+ <p class="a-body__somsInfo -thirdColor" style="color:#333;font-size:14px;margin:16px;">﻿<span class="acr-field nl-dce-field" data-nl-expr="/context/rtEvent/ctx/calleNumero" data-nl-type="string" contenteditable="false">0186 LIV Liverpool Tlalnepantla</span>﻿ ﻿<span class="acr-field nl-dce-field" data-nl-expr="/context/rtEvent/ctx/colonia" data-nl-type="string" contenteditable="false">San Lorenzo </span>﻿,  CP. ﻿<span class="acr-field nl-dce-field" data-nl-expr="/context/rtEvent/ctx/codigoPostal" data-nl-type="string" contenteditable="false">54030 </span>﻿ ﻿<span class="acr-field nl-dce-field" data-nl-expr="/context/rtEvent/ctx/municipio" data-nl-type="string" contenteditable="false">Tlalnepantla</span>﻿, ﻿
+<span class="acr-field nl-dce-field" data-nl-expr="/context/rtEvent/ctx/estado" data-nl-type="string" contenteditable="false">MEX</span>﻿
+        </p>
+        <p class="a-body__somsInfo -thirdColor" style="color:#333;font-size:14px;margin:16px;">Tel:&nbsp;﻿<span class="acr-field nl-dce-field" data-nl-expr="/context/rtEvent/ctx/telefono" data-nl-type="string" contenteditable="false">12578875</span>﻿</p>
+        <p class="a-body__somsInfo -thirdColor" style="color:#333;font-size:14px;margin:16px;">Recuerda que debes dirigirte al módulo y presentar tu número de pedido, o mostrar al asesor el código de barras arriba indicado.
+        </p>
+        
+ 
+
+
+            </td>
+
+            </tr>
+          
+        </table>
+    
+        
+</td></tr>
+
+
+
+</table></td></tr></table>
+
+</td></tr></table><!----><!----><table cellpadding="0" cellspacing="0" width="100%" role="presentation" style="min-width: 100%; " class="stylingblock-content-wrapper"><tr><td class="stylingblock-content-wrapper camarker-inner">
+  <table style="width:100%; max-width: 650px;background:#F7F7F7;margin-top:10px; padding:0px;border-spacing:0px; border-color:none;text-align:center;color:#333;" cellpadding="0" border="0">
+
+  <tbody style="background:#F7F7F7;">
+    <tr>
+      <td class="gris" style="background:#F7F7F7;width:5%;"></td>
+      <td class="gris" style="background:#F7F7F7;">
+        <img src="https://image.prom.liverpool.com.mx/lib/fe3211727364047e761678/m/1/901a7b65-69e3-4200-ab19-f6540fd6d5ac.png" width="100%" style="padding:0px; margin:0px;display:block;">
+        <h3 class="a-body__tab -primary" style="border-bottom:2px solid #e10098;color:#FFF;font-size:18px;font-weight:normal;margin:0;">
+          <span class="tabText" style="background:#e10098;display:table-cell;height:30px;line-height:30px;padding:3px 16px 0;">
+        Productos listos para recoger 
+            
+       
+          
+          
+          </span>
+        </h3>
+      </td>
+      <td class="gris" style="background:#F7F7F7;width:5%;"></td>
+      
+    </tr>
+      <tr>
+      <td class="gris" style="background:#F7F7F7;width:5%;"></td>
+      <td class="m-body__block" style="background:#FFF;border-radius:4px;margin:0 auto;">
+<table style="width:100%; max-width: 650px;background:#F7F7F7;margin:0px; padding:0px;border-spacing:0px; border-color:none;text-align:center;color:#333;" cellpadding="0" border="0">
+              
+          <tbody style="background:#FFF;">
+            <tr>
+              <td style="text-align:left;">
+                <img src="https://image.prom.liverpool.com.mx/lib/fe3211727364047e761678/m/1/901a7b65-69e3-4200-ab19-f6540fd6d5ac.png" width="100%" style="padding:0px; margin:0px;display:block;">
+                <p class="a-product__orderNumber -thirdColor" style="font-size:14px;margin-left:8%;text-align:left;"><span style="color:rgb(51, 51, 51);">No. pedido:</span><br><span style="font-weight:700;color:#122344;"><span class="acr-field nl-dce-field" data-nl-expr="/context/rtEvent/ctx/ordenRemision" data-nl-type="string" contenteditable="false">
+                     <span style="color:#e10098">7540127698</span>
+            
+                
+                  
+                  
+                  
+                  </span></span></p>
+
+            </td>
+                          <td align="right">
+                            <img src="https://image.prom.liverpool.com.mx/lib/fe3211727364047e761678/m/1/901a7b65-69e3-4200-ab19-f6540fd6d5ac.png" width="100%" style="padding:0px; margin:0px;display:block;">
+                <p class="a-product__orderDate -thirdColor" style="color:#333;font-size:14px;margin-right:5%;text-align:right;">Fecha de compra:<br><span class="acr-field nl-dce-field" data-nl-expr="/context/rtEvent/ctx/fechaEmision" data-nl-type="string" contenteditable="false">11 de octubre de 2026</span>﻿</p>
+              </td>
+            </tr>
+          
+        </table>
+    
+        
+</td></tr>
+
+
+
+</table></td></tr></table><!----><!----><table cellpadding="0" cellspacing="0" width="100%" role="presentation" style="min-width: 100%; " class="stylingblock-content-wrapper"><tr><td class="stylingblock-content-wrapper camarker-inner"></td></tr></table><!----><!----><table cellpadding="0" cellspacing="0" width="100%" role="presentation" style="min-width: 100%; " class="stylingblock-content-wrapper"><tr><td class="stylingblock-content-wrapper camarker-inner">
+<table cellpadding="0" cellspacing="0" width="100%" role="presentation" style="min-width: 100%; " class="stylingblock-content-wrapper"><tr><td class="stylingblock-content-wrapper camarker-inner">
+<table cellpadding="0" cellspacing="0" width="100%" role="presentation" style="min-width: 100%; " class="stylingblock-content-wrapper"><tr><td class="stylingblock-content-wrapper camarker-inner">
+<table style="width:100%;background:#F7F7F7;">
+  <tbody style="background:#F7F7F7;">
+    <tr>
+      
+      <td class="gris" style="background:#F7F7F7;width:5%;"></td>
+    </tr>
+    <tr>
+      <td class="gris" style="background:#F7F7F7;width:5%;"></td>
+      <td class="m-body__block" style="background:#FFF;border-radius:4px;box-shadow:0 2px 4px 0 rgba(0, 0, 0, 0.15);margin:0 auto;">
+        <table class="m-product__detail m-product__edd" style="border-bottom:1px solid #d4d4d4;border-top:1px solid #d4d4d4;padding:5px 0;width:100%;" cellspacing="0" cellpading="0">
+          <tbody style="background:#FFF;">
+            <tr>
+              <td width="50%" align="center"><a href="https://click.prom.liverpool.com.mx/?qs=ABl7ImQiOjUwMjYsInQiOjcwOCwicyI6MTJ9AAwAAAAAA3XuyF41XiEbEdgbmNcr5KhkjUONPfAaVcTufSpaPk0EW1Ly6ji9dgkXyhBae2DTUiG_1oL4jiOy63Wz5jPjd6MoQBHqf6IzWMbJIsUrmk-1L9A1tQ"><img style="max-width:230px;" alt="Liverpool Product" src="https://ss702.liverpool.com.mx/xl/1123298779_1p.jpg"></a>
+              </td>
+              <td>   
+                <h2 class="a-product__name -thirdColor" style="color:#333;font-size:16px;margin:0;">﻿<span class="acr-field nl-dce-field" data-nl-expr="DCECURRENTITEM/descripcion" data-nl-type="string" contenteditable="false">Crema facial recomendada para prevenir signos de la edad día y noche Clinique para todo tipo piel</span>﻿</h2>
+                <p class="a-product__sku -secondColor" style="color:#666;font-size:14px;margin:6px 0 8px;">Código de producto: <span class="a-product__skuValue">﻿<span class="acr-field nl-dce-field" data-nl-expr="DCECURRENTITEM/sku" data-nl-type="string" contenteditable="false">1123298779</span>﻿</span></p>
+                <p style="color:#666;font-size:12px;margin:0 0 6px">Vendido por: <span style="color:#000;font-weight:bold">Liverpool</span></p>
+                <p class="a-product__quantity -secondColor" style="color:#666;font-size:14px;margin:0;">Cantidad:&nbsp;<span style="color:rgb(51, 51, 51);">﻿<span class="acr-field nl-dce-field" data-nl-expr="DCECURRENTITEM/cantidadComprada" data-nl-type="integer" contenteditable="false">1</span>﻿</span></p>
+              </td>
+            </tr>
+          
+        </table>
+      </td>
+      <td class="gris" style="background:#F7F7F7;width:5%;"></td>
+    </tr>
+  
+</table>
+</td></tr></table><table cellpadding="0" cellspacing="0" width="100%" role="presentation" style="min-width: 100%; " class="stylingblock-content-wrapper"><tr><td class="stylingblock-content-wrapper camarker-inner">
+<table style="width:100%;background:#F7F7F7;">
+  <tbody style="background:#F7F7F7;">
+    <tr>
+      
+      <td class="gris" style="background:#F7F7F7;width:5%;"></td>
+    </tr>
+    <tr>
+      <td class="gris" style="background:#F7F7F7;width:5%;"></td>
+      <td class="m-body__block" style="background:#FFF;border-radius:4px;box-shadow:0 2px 4px 0 rgba(0, 0, 0, 0.15);margin:0 auto;">
+        <table class="m-product__detail m-product__edd" style="border-bottom:1px solid #d4d4d4;border-top:1px solid #d4d4d4;padding:5px 0;width:100%;" cellspacing="0" cellpading="0">
+          <tbody style="background:#FFF;">
+            <tr>
+              <td width="50%" align="center"><a href="https://click.prom.liverpool.com.mx/?qs=ABl7ImQiOjUwMjYsInQiOjcwOCwicyI6MTJ9AAwAAAAAA3XuyF42BS7U431WPWYlSY631zOJeWkFiehnaFu3gnOrDGDFbAxj5mLdB5mAU5Iv_sjP6fNGQu9W1m94NqZfFzol4hZbi3Sn9AaUFX8uYEETrvykTg"><img style="max-width:230px;" alt="Liverpool Product" src="https://sp424.liverpool.com.mx/i/1200439275_3p.jpg"></a>
+              </td>
+              <td>   
+                <h2 class="a-product__name -thirdColor" style="color:#333;font-size:16px;margin:0;">﻿<span class="acr-field nl-dce-field" data-nl-expr="DCECURRENTITEM/descripcion" data-nl-type="string" contenteditable="false">Peluche de panda Aurora de 12 cm</span>﻿</h2>
+                <p class="a-product__sku -secondColor" style="color:#666;font-size:14px;margin:6px 0 8px;">Código de producto: <span class="a-product__skuValue">﻿<span class="acr-field nl-dce-field" data-nl-expr="DCECURRENTITEM/sku" data-nl-type="string" contenteditable="false">1200439275</span>﻿</span></p>
+                <p style="color:#666;font-size:12px;margin:0 0 6px">Vendido por: <span style="color:#000;font-weight:bold">Liverpool</span></p>
+                <p class="a-product__quantity -secondColor" style="color:#666;font-size:14px;margin:0;">Cantidad:&nbsp;<span style="color:rgb(51, 51, 51);">﻿<span class="acr-field nl-dce-field" data-nl-expr="DCECURRENTITEM/cantidadComprada" data-nl-type="integer" contenteditable="false">1</span>﻿</span></p>
+              </td>
+            </tr>
+          
+        </table>
+      </td>
+      <td class="gris" style="background:#F7F7F7;width:5%;"></td>
+    </tr>
+  
+</table>
+</td></tr></table>
+</td></tr></table>
+
+</td></tr></table><!----><!----><table cellpadding="0" cellspacing="0" width="100%" role="presentation" style="min-width: 100%; " class="stylingblock-content-wrapper"><tr><td class="stylingblock-content-wrapper camarker-inner"></td></tr></table><!----><!----><table cellpadding="0" cellspacing="0" width="100%" role="presentation" style="min-width: 100%; " class="stylingblock-content-wrapper"><tr><td class="stylingblock-content-wrapper camarker-inner"></td></tr></table><!----><!----><table cellpadding="0" cellspacing="0" width="100%" role="presentation" style="min-width: 100%; " class="stylingblock-content-wrapper"><tr><td class="stylingblock-content-wrapper camarker-inner"></td></tr></table><!----><!----><table cellpadding="0" cellspacing="0" width="100%" role="presentation" style="min-width: 100%; " class="stylingblock-content-wrapper"><tr><td class="stylingblock-content-wrapper camarker-inner"></td></tr></table><!----><!---->
+<table cellpadding="0" cellspacing="0" width="100%" role="presentation" style="min-width: 100%; " class="stylingblock-content-wrapper"><tr><td class="stylingblock-content-wrapper camarker-inner">
+<table cellpadding="0" cellspacing="0" width="100%" role="presentation" style="min-width: 100%; " class="stylingblock-content-wrapper"><tr><td class="stylingblock-content-wrapper camarker-inner">
+
+
+
+
+
+</td></tr></table>
+
+</td></tr></table><!----><!----><table cellpadding="0" cellspacing="0" width="100%" role="presentation" style="min-width: 100%; " class="stylingblock-content-wrapper"><tr><td class="stylingblock-content-wrapper camarker-inner">
+<table cellpadding="0" cellspacing="0" width="100%" role="presentation" style="min-width: 100%; " class="stylingblock-content-wrapper"><tr><td class="stylingblock-content-wrapper camarker-inner">
+
+  
+    <meta name="content-version" content="3.3.7">
+    <meta class="nl-dce-fragment" data-nl-name="EmailUrlBase">
+    <meta name="x-apple-disable-message-reformatting">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0">
+    
+<style data-name="default" type="text/css">body{font-family:sans-serif;margin:0 !important;padding:0 !important;background:#FFFFFF;min-width:750px;}td{padding:0;border-collapse:collapse;}th{font-weight:normal;text-align:left;}.acr-fragment,.acr-component{padding:0;}.divider-container{padding:5px 0;font-size:0px;}.text-container p{margin:0;}.image-container{line-height:0;}.acr-tmp-component img,.image-container img{height:auto;}.button-container a{text-decoration:none;color:inherit;}.acr-structure{background-size:auto;background-repeat:no-repeat;}.structure__table{table-layout:fixed;margin:0 auto;border-spacing:0;background-size:auto;background-repeat:no-repeat;mso-table-lspace:0pt !important;mso-table-rspace:0pt
+ !important;}.colspan1,.colspan2,.colspan3,.colspan4,.colspan33,.colspan66{background-size:auto;background-repeat:no-repeat;box-sizing:border-box;}.colspan1{width:100%;}.colspan2{width:50%;}.colspan3{width:75%;}.colspan4{width:25%;}.colspan33{width:33%;}.colspan66{width:66%;}.component-social-container{width:100%;text-align:center;}span.preheader{display:none !important;visibility:hidden;mso-hide:all;opacity:0;}.ExternalClass{width:100%;}.ExternalClass,.ExternalClass p,.ExternalClass span,.ExternalClass font,.ExternalClass td,.ExternalClass div{line-height:100%;}h1,h2,h3,h4,h5{display:block;font-weight:bold;}h1{font-size:24px;margin:19px 0 19px 0;}h2{font-size:24px;margin:20px 0 20px 0;}h3{font-size:19px;margin:19px 0 19px 0;}h4{font-size:16px;margin:21px 0 21px
+ 0;}h5{font-size:13px;margin:22px 0 22px 0;}h6{font-size:11px;margin:25px 0 25px 0;}@media screen and (min-width: 500px){.is-desktop-hidden{display:none !important;}}</style>
+    <style data-name="custom" type="text/css">body{min-width:650px;}</style>
+    <style data-name="media-default-max-width-500px" type="text/css">@media screen and (max-width: 500px){body{width:100% !important;min-width:0px !important;}.structure__table{width:100%;}th{display:block !important;min-width:100%;}.container-small-size th{display:table-cell !important;width:100% !important;}.is-mobile-hidden{display:none !important;}}</style>
+    <style data-name="media-custom-max-width-500px" type="text/css">@media screen and (max-width: 500px){body{min-width:0px;}#acr-footer-liv th{display:table-cell !important;}#footer_columns th{display:table-cell !important;}}</style>
+    <style> a.pcl {
+      color:#e10098;
+      font-weight:bold;
+      }
+
+      a.pcnl {
+        color:#000000;
+        font-weight:bold;
+      }</style>
+    <link rel="stylesheet" href="https://storage.cloud.google.com/data-tec/css/showMe.css">
+    <!--[if gte mso 9]><style acrite-mso-css="true">.image-container div {  display: block;}.structure__table td {  padding: 0;  border: none;}.button-container {  border: none !important;  padding: 0 !important;  margin: 0 !important;  line-height: normal !important;}.acr-structure {  margin: 0 !important;}.acr-component {  margin: 0 !important;}.acr-fragment {  margin: 0 !important;}.colspan1, .colspan2, .colspan3, .colspan4, .colspan33, .colspan66 {  box-sizing: border-box !important;}</style><![endif]-->
+  
+  
+    <div class="acr-container">
+      <div class="acr-structure is-footer nl-dce-variant nl-dce-variant-block nl-dce-if nl-dce-multiconditional" data-structure-id="1-1-column" data-structure-name="richtext.structure_1_1_column" data-nl-variant-group="1580838006175" data-nl-variant-label="Default" data-nl-variant-index="0" data-nl-expr="" data-nl-condition-type="multiple" data-nl-variant-default="true">
+        <table class="structure__table" align="center" cellpadding="0" cellspacing="0" border="0" width="650">
+          
+            <tr>
+              <th class="colspan1">
+                <div style="background-color:rgb(242, 242, 242);" class="acr-fragment is-locked nl-dce-content-model" data-fragment-id="@SRKjxpN8osVXPjlO3gg42mm09MFYrf2UXQks0dLmKyjUm3ZjPcDThQ5O-9WNY3dxIcakrPfOR20EGKCvq9NI5_ca1rk27uinG1GbwyPao6v9UUiJ" data-fragment-ref="CMDL47_FooterLivTRN" data-nl-name="CMDL47_FooterLivTRN" data-fragment-name="FooterLivTRN (CMDL47_FooterLivTRN)">
+                  
+                  <table align="center" cellpadding="0" cellspacing="0" border="0" style="table-layout: fixed; width: 100%;">
+                    <tbody style="background: #F7F7F7;">
+                      <tr>
+                        <th class="colspan1" style="background-color:rgb(242, 242, 242);text-align:center;">
+                          <div class="acr-tmp-component" style="margin-top:10px;" data-contenteditable="true" data-tmp-component-id="html">
+                            <!--[if mso]><table cellpadding="0" cellspacing="0" border="0" width="100%"><tr><td style="padding-top: 10px; text-align: center; padding-right: 16px; padding-left: 16px;"><table cellpadding="0" cellspacing="0" border="0" width="100%"><tr><td style="background-color: rgb(238, 238, 238); padding-bottom: 4px; padding-right: 10px;"><![endif]-->
+                            <br>
+                            <table style="width: 100%;">
+                              <tfoot style="background: #F7F7F7;">
+                                <tr align="center" style="background-color:rgb(242, 242, 242);text-align:center;">
+                                  <td><a class="arc-link" data-nl-type="externalLink" href="https://click.prom.liverpool.com.mx/?qs=ABl7ImQiOjUwMjYsInQiOjcwOCwicyI6MTJ9AAwAAAAAA3XuyF43lJZ304gDWQlQtC_bJEwjAdWzSnYFTyEZtcJVVEaCQMu_XqikzkF2GXg-hrSC9lVyDeZssWkuf9bSHWyGZwC-yPqemaIyxKxlnHqi"><img class="a-footer__logo" src="https://image.prom.liverpool.com.mx/lib/fe3211727364047e761678/m/1/1d5473c6-d5d7-4703-9a52-ea82517414a2.png" alt="Envio Gratis" style="margin: 0 60px 0px 15px; width: 12%;display:inline-block;vertical-align:middle;" title="banner_envio" width="224"></a>
+                                    <a class="arc-link" data-nl-type="externalLink" href="https://click.prom.liverpool.com.mx/?qs=ABl7ImQiOjUwMjYsInQiOjcwOCwicyI6MTJ9AAwAAAAAA3XuyF44wRgY49R7FVHkZCI7Aut08Kte6k_z2PkhJsmC0uV5oZtepPzm1t59_EAns5LSTqzPtxZUHGiK2E5JGoONrajX2uy0kyfeGUQj2pX0"><img src="https://image.prom.liverpool.com.mx/lib/fe3211727364047e761678/m/1/1a5e55c5-aea8-42a9-8da2-ea87d83fd3c8.png" style="margin: 0; margin-bottom: 0px; margin-right: 60px; width: 11.8%;display:inline-block;vertical-align:middle;" title="banner_CC" data-nl-imgep-perso-attr-alt="Click &amp;amp; Collect" alt="Click &amp;amp; Collect" width="224"></a>
+                                    <a href="https://click.prom.liverpool.com.mx/?qs=ABl7ImQiOjUwMjYsInQiOjcwOCwicyI6MTJ9AAwAAAAAA3XuyF45Uh1VBJ7gD-5q9xWeAbXB-eF84YrXnHzSgi9oFhg9ZN_5F_urVJEtDiXQBhplpgchU8xYS-LyU7Lg_qCmgohJxKwAMgvwGPPwEvP6"><img class="a-footer__logo -garantia" src="https://image.prom.liverpool.com.mx/lib/fe3211727364047e761678/m/1/9641ef18-b571-4c3f-9eff-7c99d9f2b4b2.png" alt="Garantía Liverpool" style="margin: 0; margin-left: 0px; margin-right: 20px; width: 24%;display:inline-block;vertical-align:middle;" data-nl-imgep-perso-attr-alt="Devoluciones sin complicaciones - Liverpool" width="220"></a>
+                      <br> <br>            </td>
+                                </tr>
+                                <tr align="center" style="background-color:rgb(242, 242, 242);text-align:center;">
+                                  <td>
+                                    <p style="text-align:center;"><span style="color:rgb(102, 102, 102);font-weight:700;font-size:12px;">Ventas y Centro de Contacto Liverpool</span><br><span style="color:rgb(102, 102, 102);font-size:12px;">(55) 5262 9999 o desde tu celular *7171</span></p>
+                                  </td>
+                                </tr>
+                                <tr align="center" style="background-color:rgb(242, 242, 242);">
+                                  <td><a class="a-footer__ayudaLink -secondColor" href="https://click.prom.liverpool.com.mx/?qs=ABl7ImQiOjUwMjYsInQiOjcwOCwicyI6MTJ9AAwAAAAAA3XuyF46NBEtItgtILDiIod-VPHyWKAJv6Oz6TDPXLpMSj6T4A3CxEecK5mcWJfrap3nft4xI-mX8-QFkfgxic-_Y9_w0iW-OOFSGyF-YyPV" target="_blank" style="border-right: 1px solid #666; color: #666666; display: inline-block; font-size: 11px; font-weight: bold; margin-top: 16px; padding: 0 12px; text-decoration: none;" data-nl-type="externalLink" data-nl-lnkep-perso-attr-href="https://assetspwa.liverpool.com.mx/ayuda/index.html?#/sec/terminos-y-condiciones/proteccion-de-datos/aviso-clientes">Aviso de Privacidad</a>
+<a class="a-footer__ayudaLink -secondColor" href="https://click.prom.liverpool.com.mx/?qs=ABl7ImQiOjUwMjYsInQiOjcwOCwicyI6MTJ9AAwAAAAAA3XuyF47GYTFYMf9HG-ClyMPf-cxc7Tgx-EVAStXlyDSgsb0IldjPuFRL2u2G5rZPFwbhUulm8VJ1teR971j5b95EUOOc6x2wM_rl1rEg2VB" target="_blank" style="border-right: 1px solid #666; color: #666666; display: inline-block; font-size: 11px; font-weight: bold; margin-top: 16px; padding: 0 12px 0px 5px; text-decoration: none;" data-nl-type="externalLink" data-nl-lnkep-perso-attr-href="https://assetspwa.liverpool.com.mx/ayuda/index.html">Ayuda</a>
+<a class="a-footer__ayudaLink -secondColor" href="https://click.prom.liverpool.com.mx/?qs=ABl7ImQiOjUwMjYsInQiOjcwOCwicyI6MTJ9AAwAAAAAA3XuyF48qlSr33fZ5yf7m8yOwVmNBn2YxJboaXsCnvSf8HleIx0N-cOnspjjs2ACMUzyaZjwlZRXbMWE7lT5U57ps9Shxb_LQk1StfI5t0WY" target="_blank" style="border-right: 1px solid #666; color: #666666; display: inline-block; font-size: 11px; font-weight: bold; margin-top: 16px; padding: 0 12px; text-decoration: none;">Devoluciones</a>
+<a href="https://click.prom.liverpool.com.mx/?qs=ABl7ImQiOjUwMjYsInQiOjcwOCwicyI6MTJ9AAwAAAAAA3XuyF499vkR3c5fCu5EiZ-cxiAisDyxwmHCnPHd1PPx413Osz9gDcU7XUtw6CxD9hbyvuHELxt3juarJaRiV7r7JV9KR1kdHrrTkcyvHbPp" target="_blank" style="border-right: none; color: #666666; display: inline-block; font-size: 11px; font-weight: bold; margin-top: 16px; padding: 0 5px; text-decoration: none;">Garantía de Servicio</a></td>
+                                </tr>
+                                <tr align="center" style="background-color:rgb(242, 242, 242);">
+                                  <td>
+                                    <p class="a-footer__legalParagraph -secondColor" style="color:rgb(102, 102, 102);font-size: 11px; margin-top: 16px; max-width: 485px; text-align: center; width: 81%;">Distribuidora Liverpool S.A. de C.V. Prolongación Vasco de Quiroga 4800, Torre 2, Piso 3. Colonia Santa Fe Cuajimalpa. Delegación Cuajimalpa de Morelos. C.P. 05348, Ciudad de México. DLI931201MI9. Régimen General de Ley Personas Morales.</p>
+                                  </td>
+                                </tr>
+                    <tr align="center" style="background-color:#f2f2f2;">
+  <td style="padding-top:16px;">
+    <p style="       color:#666666;       font-family:Arial, sans-serif;       font-size:12px;       font-weight:bold;       margin:0px 0px 8px 0px;     ">
+      Descarga Liverpool Pocket
+    </p>
+  </td>
+</tr>
+
+                                
+                                <tr align="center" style="background-color:#f2f2f2;">
+  <td>
+    <table align="center" cellpadding="0" cellspacing="0" border="0">
+      <tr>
+
+        <td align="center" width="90" style="padding:0 8px;">
+          <a href="https://click.prom.liverpool.com.mx/?qs=ABl7ImQiOjUwMjYsInQiOjcwOCwicyI6MTJ9AAwAAAAAA3XuyF4-fqd0wTEMt-0eNp8ix4ZsreAB4qs2VeJGwY5c7RxmVJYSWQ54qsr33SsdBf7VGEuK62tSzEK4KrRLjCI2nPgs-JAvOZAJkXWlWh4Y" style="display:block;">
+            <img src="https://image.prom.liverpool.com.mx/lib/fe3211727364047e761678/m/1/67c6ff29-2292-4ed6-accd-61640e637ec8.png" alt="Google Play" style="display:block; width:90px; height:32px;">
+          </a>
+        </td>
+
+        <td align="center" width="90" style="padding:0 8px;">
+          <a href="https://click.prom.liverpool.com.mx/?qs=ABl7ImQiOjUwMjYsInQiOjcwOCwicyI6MTJ9AAwAAAAAA3XuyF4_d0a9XUJ_27eexOBHMU-RmYIEiBqE2Fh_oicchTWgup6iZARoI4vFqPy223uxjFUccuDWyteyJYIu7HBEVHU-kpfJAIH_V3W7ya5c" style="display:block;">
+            <img src="https://image.prom.liverpool.com.mx/lib/fe3211727364047e761678/m/1/5f33abf8-906f-4228-8846-6080146fa2b5.png" alt="App Store" style="display:block; width:90px; height:32px;">
+          </a>
+        </td>
+
+        <td align="center" width="90" style="padding:0 8px;">
+          <a href="https://click.prom.liverpool.com.mx/?qs=ABl7ImQiOjUwMjYsInQiOjcwOCwicyI6MTJ9AAwAAAAAA3XuyF5AtJsjEj0lH0qSUiN8oSS0al1A5mF7F_-Hho4L9lzRt-QOprbzz0gSdTAJibruDrmx_OJgHsyehB91ssOU-_ASsWP1iAWkjUbA0I9X" style="display:block;">
+            <img src="https://image.prom.liverpool.com.mx/lib/fe3211727364047e761678/m/1/f45b3f07-965b-4c1b-988b-c78bd7e35818.png" alt="AppGallery" style="display:block; width:90px; height:32px;">
+          </a>
+        </td>
+
+      </tr>
+    </table>
+  </td>
+</tr>
+
+
+<tr align="center" style="background-color:#f2f2f2;">
+  <td style="padding-bottom:16px;">
+    <table align="center" cellpadding="0" cellspacing="0" border="0">
+                                      <tr align="center" style="background-color:rgb(242, 242, 242);text-align:center;">
+                                  <td>
+                                    <p class="a-footer__boldParagraph -secondColor" style="color:rgb(102, 102, 102);font-family: Arial, sans-serif; font-size: 12px; font-weight: bold; margin: 30px 0 15px;">Síguenos en
+                                    </p>
+                                    <a class="a-footer__socialAnchor" href="https://click.prom.liverpool.com.mx/?qs=ABl7ImQiOjUwMjYsInQiOjcwOCwicyI6MTJ9AAwAAAAAA3XuyF5Bnh2bspgC4MvC86KHs4rTB5dQGDJFMHyWuT7d3Aw6qMpBN_MibAdLS6Wg5Q-SG1L6jyk04qoWK7nOnHV00W7yKMlkRrTob0ig6wx8" target="_blank" style="color: rgb(225, 0, 152); display: inline-block; margin-bottom: 16px; padding:0px 17px;width:7%" data-nl-type="externalLink"><img class="a-footer__socialLogo" src="https://image.prom.liverpool.com.mx/lib/fe3211727364047e761678/m/1/e125ea97-b32a-4c7a-80d8-c91321701ba8.png" alt="Facebook" style="margin: 0 0px; width: 100%;" title="Facebook"></a>
+                                    <a class="a-footer__socialAnchor" href="https://click.prom.liverpool.com.mx/?qs=ABl7ImQiOjUwMjYsInQiOjcwOCwicyI6MTJ9AAwAAAAAA3XuyF5CFJx8v4lpPcE7kbKW6wNlg05w1_QK3dSyi4UmD2aYzfVrcRATPh0Zr3kXrKd1LX-872upMizODilj-HgX9U82lkhTUVsgIFfeJVGr" target="_blank" style="color: rgb(225, 0, 152); display: inline-block; margin-bottom: 16px; padding:0px 15px ;width:7%" data-nl-type="externalLink"><img class="a-footer__socialLogo" src="https://image.prom.liverpool.com.mx/lib/fe3211727364047e761678/m/1/eddc2bad-e439-4dc0-89c2-48bc3d15ba31.png" alt="X" style="margin: 0 0px 0px; width: 100%;" title="X"></a>
+                                    <a class="a-footer__socialAnchor" href="https://click.prom.liverpool.com.mx/?qs=ABl7ImQiOjUwMjYsInQiOjcwOCwicyI6MTJ9AAwAAAAAA3XuyF5Dn5RG8NUFYa-62XSQtUqJniw8JFzrP04sCb6IrgI8oY1qtHkGa2UQ9h_Tc3rPLYMgKPZ_iEsp5d_A7_Dylj7W1_B8dTn2abAI_KVc" target="_blank" style="color: rgb(225, 0, 152); display: inline-block; margin-bottom: 16px; padding:0px 17px ;width:7%" data-nl-type="externalLink"><img class="a-footer__socialLogo" src="https://image.prom.liverpool.com.mx/lib/fe3211727364047e761678/m/1/c083313e-4fb2-4d94-98b9-4d7ca330ee9b.png" alt="Instagram" style="margin: 0 0px; width: 100%;" title="Instagram"></a>
+                                    <a class="a-footer__socialAnchor" href="https://click.prom.liverpool.com.mx/?qs=ABl7ImQiOjUwMjYsInQiOjcwOCwicyI6MTJ9AAwAAAAAA3XuyF5E0gbH3TNfsnwSRBFLGrTmumkUSvWtASjO3lBF7cdtp8RJ5vEZDnYJ9yOQ3GCGnNJ0JiLhvjycleSpGTbZb-fRA2Ac9Bcl_hk4CBNW" target="_blank" style="color: rgb(225, 0, 152); display: inline-block; margin-bottom: 16px; padding:0px 15px ;width:7%" data-nl-type="externalLink"><img class="a-footer__socialLogo" src="https://image.prom.liverpool.com.mx/lib/fe3211727364047e761678/m/1/6e273d4d-45bc-4044-bdbd-679714388bd7.png" alt="TikTok" style="margin: 0 0px; width: 100%;" title="TikTok"></a>
+
+
+                                  </td>
+                                </tr>
+    </table>
+  </td>
+</tr>
+
+
+
+                                <tr class="a-footer__slogan" align="center" style="background: #464640; height: 30px;">
+                                  <td>
+                                    <p class="a-footer__sloganParagraph" style="color: #FFFF; font-size: 10px; margin: 0;">Es parte de mi vida</p>
+                                  </td>
+                                </tr>
+                              </tfoot>
+                            </table>
+                            <!--[if mso]></td></tr></table></td></tr></table><![endif]-->
+                          </div>
+                        </th>
+                      </tr>
+                    
+                  </table>
+                </div>
+              </th>
+            </tr>
+          
+        </table>
+      </div>
+    </div>
+  
+</td></tr></table>
+
+</td></tr></table><!---->
+												  
+                                                </td>
+                                              </tr>
+                                              </tbody>
+                                            </table>
+                                          </td>
+                                        </tr>
+                                    </tbody>
+                                  </table>
+                                </td>
+                              </tr>
+                            </table>
+                          </td>
+                        </tr>
+                      </table>
+                    </td>
+                  </tr>
+                </table>
+              </td>
+            </tr>
+          </table>
+        </td>
+      </tr>
+      <tr>
+        <td valign="top">
+          <table cellpadding="2" cellspacing="0" width="600" align="center">     <tr>      <td>        <font face="verdana" size="1" color="#777777">      This email was sent to:  <b>robertoj.mtzj@gmail.com</b><br><br>      <table cellpadding="2" cellspacing="0" width="450" ID="Table1" Border=0>       <tr>        <td>        <font face="verdana" size="1" color="#777777">        This email was sent by: SERVICIOS LIVERPOOL S.A. DE C.V.<br>                  Mario Pani 200, Santa Fe, Ciudad de México, Ciudad de México, 05348, México         </font>        </td>       </tr>      </table><br><br>       We respect your right to privacy - <a href="https://click.prom.liverpool.com.mx/?qs=ABl7ImQiOjUwMjYsInQiOjcwOCwicyI6MTJ9AAwAAAAAA3XuyF5FwVw1Oy3ZU8oWMJEPJby0Xomwcua6nSJjKBe2ZS8XgRSdX-mk-hd5WcfuzlfMrvNzBkTZsoTzyET_WgMbnFpdzl17XYsiw8ELma33"  style="color: #0000ff">view our policy</a>      </font>      </td>      <td width=150>      
+<a href="https://click.prom.liverpool.com.mx/?qs=ABl7ImQiOjUwMjYsInQiOjcwOCwicyI6MTJ9AAwAAAAAA3XuyF5GhdgX7C8n4aw7r5sua0BbAFiBG7bgX4WtMW32AdhAO9amNJ8FUTJhuokCa7bA995C69lYuC65jRrEkjgO3zE4ACPqHIdOyhdRFziB" target="new" ><img src="https://www.exacttarget.com/gfx/newpoweredby.gif" border="0"></a></td>     </tr>    </table>   
+        </td>
+      </tr>
+    </table>
+  </body>
+</html>
+
+--n8uOAZFRvIQO=_?:--
+
